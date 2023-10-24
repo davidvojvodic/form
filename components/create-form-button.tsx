@@ -14,14 +14,16 @@ import {
 } from "./ui/dialog";
 
 import { formSchema, formSchemaType } from "@/schemas/form";
-import { Loader } from "lucide-react";
+import { File, Loader } from "lucide-react";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { toast } from "./ui/use-toast";
 import { CreateForm } from "@/actions/form";
+import { useRouter } from "next/navigation";
 
 export const CreateFormButton = () => {
+  const router = useRouter();
   const form = useForm<formSchemaType>({
     resolver: zodResolver(formSchema),
   });
@@ -33,7 +35,7 @@ export const CreateFormButton = () => {
         title: "Form created",
         description: "Your form has been created",
       });
-      console.log("Form ID", formId);
+      router.push(`/builder/${formId}`);
     } catch (error) {
       toast({
         title: "Something went wrong",
@@ -45,7 +47,15 @@ export const CreateFormButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>Create new form</Button>
+        <Button
+          variant="outline"
+          className="group border border-primary/20 h-[190px] items-center justify-center flex flex-col hover:border-primary hover:cursor-pointer border-dashed gap-4 "
+        >
+          <File className="h-8 w-8 text-muted-foreground group-hover:text-primary" />
+          <p className="font-bold text-xl text-muted-foreground group-hover:text-primary">
+            Create new form
+          </p>
+        </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
