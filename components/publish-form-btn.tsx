@@ -8,7 +8,7 @@ const PublishFormBtn = () => {
       variant="outline"
       className="gap-2 text-white bg-gradient-to-r from-indigo-500 to-green-500"
     >
-      Save
+      Publish
       <BookOpenCheck className="h-4 w-4" />
     </Button>
   );
