@@ -8,6 +8,7 @@ import {
 } from "../form-elements";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
+import { z } from "zod";
 
 const type: ElementsType = "TextField";
 
@@ -15,8 +16,15 @@ const extraAttributes = {
   label: "Text field",
   helperText: "Helper text",
   required: false,
-  placeholder: "value here...",
+  placeholder: "Value here...",
 };
+
+const propertiesSchema = z.object({
+  label: z.string().min(2).max(50),
+  helperText: z.string().max(200),
+  required: z.boolean().default(false),
+  placeholder: z.string().max(50),
+});
 
 export const TextFieldFormElement: FormElement = {
   type,
@@ -31,12 +39,21 @@ export const TextFieldFormElement: FormElement = {
   },
   designerComponent: DesignerComponent,
   formComponent: () => <div>Form component</div>,
-  propertiesComponent: () => <div>Properties component</div>,
+  propertiesComponent: PropertiesComponent,
 };
 
 type CustomInstance = FormElementInstance & {
   extraAttributes: typeof extraAttributes;
 };
+
+function PropertiesComponent({
+  elementInstance,
+}: {
+  elementInstance: FormElementInstance;
+}) {
+  const element = elementInstance as CustomInstance;
+  return <div>Form Properties for {element.extraAttributes.label}</div>;
+}
 
 function DesignerComponent({
   elementInstance,

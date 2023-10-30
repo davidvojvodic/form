@@ -20,7 +20,8 @@ import { Button } from "./ui/button";
 import { Trash } from "lucide-react";
 
 const Designer = () => {
-  const { elements, addElement } = useDesigner();
+  const { elements, addElement, selectedElement, setSelectedElement } =
+    useDesigner();
   const droppable = useDroppable({
     id: "designer-drop-area",
     data: {
@@ -48,7 +49,12 @@ const Designer = () => {
 
   return (
     <div className="flex w-full h-full">
-      <div className="p-4 w-full">
+      <div
+        onClick={() => {
+          if (selectedElement) setSelectedElement(null);
+        }}
+        className="p-4 w-full"
+      >
         <div
           ref={droppable.setNodeRef}
           className={cn(
@@ -83,7 +89,7 @@ const Designer = () => {
 };
 
 function DesignerElementWrapper({ element }: { element: FormElementInstance }) {
-  const { removeElement } = useDesigner();
+  const { removeElement, selectedElement, setSelectedElement } = useDesigner();
   const [mouseIsOver, setMouseIsOver] = useState<boolean>(false);
 
   const topHalf = useDroppable({
@@ -129,6 +135,10 @@ function DesignerElementWrapper({ element }: { element: FormElementInstance }) {
         onMouseLeave={() => {
           setMouseIsOver(false);
         }}
+        onClick={(e) => {
+          e.stopPropagation();
+          setSelectedElement(element);
+        }}
         className="relative h-[120px] flex flex-col text-foreground hover:cursor-pointer rounded-md ring-1 ring-accent ring-inset"
       >
         <div
@@ -144,7 +154,8 @@ function DesignerElementWrapper({ element }: { element: FormElementInstance }) {
             <div className="absolute right-0 h-full">
               <Button
                 variant="outline"
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   removeElement(element.id);
                 }}
                 className="flex justify-center h-full border rounded-md rounded-l-none bg-red-500"
