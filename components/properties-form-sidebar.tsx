@@ -2,8 +2,9 @@ import useDesigner from "@/hooks/use-designer";
 import React from "react";
 import { FormElements } from "./form-elements";
 import { Button } from "./ui/button";
-import { DoorClosedIcon } from "lucide-react";
+
 import { ExitIcon } from "@radix-ui/react-icons";
+import { Separator } from "./ui/separator";
 
 const PropertiesFormSidebar = () => {
   const { selectedElement, setSelectedElement } = useDesigner();
@@ -24,7 +25,8 @@ const PropertiesFormSidebar = () => {
           <ExitIcon />
         </Button>
       </div>
-      <PropertiesForm elementInstance={selectedElement} />;
+      <Separator className="mb-4" />
+      <PropertiesForm elementInstance={selectedElement} />
     </div>
   );
 };
