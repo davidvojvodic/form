@@ -7,7 +7,7 @@ function Logo() {
       href="/"
       className="font-bold text-3xl bg-gradient-to-r from-indigo-500 to-green-500 text-transparent bg-clip-text hover:cursor-pointer"
     >
-      PageForm
+      LOGO
     </Link>
   );
 }
