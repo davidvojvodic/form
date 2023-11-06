@@ -3,6 +3,7 @@
 import prisma from "@/lib/prisma"
 import { formSchema, formSchemaType } from "@/schemas/form"
 import { currentUser } from "@clerk/nextjs"
+import { string } from "zod"
 
 class UserNotFoundErr extends Error {}
 
@@ -135,6 +136,22 @@ export async function PublishForm(id: string) {
         },
         data: {
             published: true
+        }
+    })
+}
+
+export async function GetFormContentByUrl(formUrl: string) {
+    return await prisma.form.update({
+        select: {
+            content: true
+        },
+        data: {
+            visits: {
+                increment: 1
+            }
+        },
+        where: {
+            shareURL: formUrl
         }
     })
 }

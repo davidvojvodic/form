@@ -55,7 +55,7 @@ interface StatsCardsProps {
   loading: boolean;
 }
 
-function StatsCards({ data, loading }: StatsCardsProps) {
+export function StatsCards({ data, loading }: StatsCardsProps) {
   return (
     <div className="w-full pt-8 gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
       <StatsCard
@@ -103,7 +103,7 @@ interface StatsCardProps {
   loading: boolean;
 }
 
-function StatsCard({
+export function StatsCard({
   title,
   icon,
   helperText,
